@@ -2,6 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
+import '/app/ui/food_container.dart';
+import '/data/food.dart';
+
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
 
@@ -23,7 +26,21 @@ class HomeScreen extends StatelessWidget {
           } else if (snapshot.hasError) {
             Text('Error');
           }
-          return Text('Pass');
+          final docs = snapshot.data!.docs;
+          return ListView.builder(
+            itemCount: docs.length,
+            itemBuilder: (context, index) {
+              final List<Food> foodList =
+                  docs
+                      .map(
+                        (element) => Food.fromJson(
+                          element.data() as Map<String, dynamic>,
+                        ),
+                      )
+                      .toList();
+              return FoodContainer(food: foodList[index]);
+            },
+          );
         },
       ),
     );

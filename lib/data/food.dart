@@ -1,5 +1,4 @@
 class Food {
-  final String country;
   final String chefName;
   final String chefImageUrl;
   final String menuName;
@@ -9,7 +8,6 @@ class Food {
   
   Food({
     required this.menuName,
-    required this.country,
     required this.chefName,
     required this.chefImageUrl,
     required this.ingredients,
@@ -17,10 +15,9 @@ class Food {
     required this.isFavorite,
   });
 
-  factory Food.fromJson(Map<String, dynamic> foodMap, String country) {
+  factory Food.fromJson(Map<String, dynamic> foodMap) {
     return Food(
       menuName: foodMap['menu_name'] ?? '',
-      country: country,
       chefName: foodMap['chef']?['name'] ?? '',
       chefImageUrl: foodMap['chef']?['image_url'] ?? '',
       ingredients: foodMap['ingredients'] ?? '',
