@@ -5,7 +5,8 @@ class Food {
   final String ingredients;
   final String foodImageUrl;
   bool isFavorite;
-  
+  late List<String> searchkeywords;
+
   Food({
     required this.menuName,
     required this.chefName,

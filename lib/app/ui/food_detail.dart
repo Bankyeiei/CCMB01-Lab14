@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lab14/app/home.dart';
 
+import '/app/home.dart';
 import '/data/food.dart';
 
 class FoodDetail extends StatefulWidget {
@@ -23,9 +23,12 @@ class _FoodDetailState extends State<FoodDetail> {
 
   @override
   void dispose() {
-    HomeScreen.foods.doc(widget.id).update({
-      'is_favorite': widget.food.isFavorite,
-    });
+    if (memIsFavorite != widget.food.isFavorite) {
+      //* Update where it change only
+      HomeScreen.foods.doc(widget.id).update({
+        'is_favorite': widget.food.isFavorite,
+      });
+    }
     super.dispose();
   }
 
@@ -41,9 +44,10 @@ class _FoodDetailState extends State<FoodDetail> {
                 widget.food.isFavorite
                     ? Icon(Icons.favorite, color: Colors.red, size: 24)
                     : Icon(Icons.favorite_outline, size: 24),
-            onPressed: () async {
-              widget.food.clickLike();
-              setState(() {});
+            onPressed: () {
+              setState(() {
+                widget.food.clickLike();
+              });
             },
           ),
           SizedBox(width: 10),

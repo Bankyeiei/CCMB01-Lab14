@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:lab14/app/ui/food_detail.dart';
 
+import '/app/ui/food_detail.dart';
 import '/data/food.dart';
 
 class FoodContainer extends StatelessWidget {
