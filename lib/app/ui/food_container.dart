@@ -5,7 +5,8 @@ import '/data/food.dart';
 
 class FoodContainer extends StatelessWidget {
   final Food food;
-  const FoodContainer({super.key, required this.food});
+  final String id;
+  const FoodContainer({super.key, required this.food, required this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,9 @@ class FoodContainer extends StatelessWidget {
       onTap:
           () => Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => FoodDetail(food: food)),
+            MaterialPageRoute(
+              builder: (context) => FoodDetail(food: food, id: id),
+            ),
           ),
       child: Container(
         clipBehavior: Clip.antiAlias,

@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 import '/app/ui/food_container.dart';
@@ -15,7 +14,7 @@ class HomeScreen extends StatelessWidget {
     return foods.snapshots();
   }
 
-  Future<void> addFood() async {
+  Future<void> resetFood() async {
     await deleteAllFood();
     List<Food> foodList =
         foodJson['thai_foods']!
@@ -45,7 +44,38 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Menu'),
         actions: [
-          IconButton(onPressed: () => addFood(), icon: Icon(Icons.add)),
+          IconButton(
+            tooltip: 'Reset',
+            onPressed:
+                () => showDialog(
+                  context: context,
+                  builder:
+                      (context) => AlertDialog(
+                        title: Text('Are you sure to reset?'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context),
+                            child: Text(
+                              'No',
+                              style: TextStyle(color: Colors.black),
+                            ),
+                          ),
+                          FilledButton(
+                            style: FilledButton.styleFrom(
+                              backgroundColor: Colors.red,
+                            ),
+                            onPressed: () {
+                              resetFood();
+                              Navigator.pop(context);
+                            },
+                            child: Text('Yes'),
+                          ),
+                        ],
+                      ),
+                ),
+            icon: Icon(Icons.refresh, size: 24),
+          ),
+          SizedBox(width: 10),
         ],
       ),
       body: Column(
@@ -72,7 +102,10 @@ class HomeScreen extends StatelessWidget {
                               ),
                             )
                             .toList();
-                    return FoodContainer(food: foodList[index]);
+                    return FoodContainer(
+                      food: foodList[index],
+                      id: docs[index].id,
+                    );
                   },
                 );
               },

@@ -1,16 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:lab14/app/home.dart';
 
 import '/data/food.dart';
 
 class FoodDetail extends StatefulWidget {
   final Food food;
-  const FoodDetail({super.key, required this.food});
+  final String id;
+  const FoodDetail({super.key, required this.food, required this.id});
 
   @override
   State<FoodDetail> createState() => _FoodDetailState();
 }
 
 class _FoodDetailState extends State<FoodDetail> {
+  late bool memIsFavorite;
+
+  @override
+  void initState() {
+    memIsFavorite = widget.food.isFavorite;
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    HomeScreen.foods.doc(widget.id).update({
+      'is_favorite': widget.food.isFavorite,
+    });
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,9 +39,9 @@ class _FoodDetailState extends State<FoodDetail> {
           IconButton(
             icon:
                 widget.food.isFavorite
-                    ? Icon(Icons.favorite, color: Colors.red)
-                    : Icon(Icons.favorite_outline),
-            onPressed: () {
+                    ? Icon(Icons.favorite, color: Colors.red, size: 24)
+                    : Icon(Icons.favorite_outline, size: 24),
+            onPressed: () async {
               widget.food.clickLike();
               setState(() {});
             },
