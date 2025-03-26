@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "375024333613",
+    "project_id": "ccmb01-lab14",
+    "storage_bucket": "ccmb01-lab14.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:375024333613:android:2c6fdad9a5ed53156219a4",
+        "android_client_info": {
+          "package_name": "com.example.lab14"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAyL0pqJ_rqqOpEt8OJgPjE8lUpd1Rz9E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
