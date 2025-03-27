@@ -7,7 +7,6 @@ import '/data/data.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
   static var searchFocusNode = FocusNode();
   static var foods = FirebaseFirestore.instance.collection('foods');
 
@@ -17,6 +16,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
+  bool isDescending = false;
 
   List<String> generateKeywords(String text) {
     text = text.toLowerCase();
@@ -32,6 +32,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Stream<QuerySnapshot> getFoods(String keyword) {
     return HomeScreen.foods
         .where('search_keywords', arrayContains: keyword.toLowerCase())
+        .orderBy('menu_name', descending: isDescending)
         .snapshots();
   }
 
@@ -68,6 +69,15 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Text('Menu'),
           actions: [
+            IconButton(
+              tooltip: 'Sort by Menu',
+              onPressed: () {
+                setState(() {
+                  isDescending = !isDescending;
+                });
+              },
+              icon: Icon(Icons.sort_by_alpha),
+            ),
             IconButton(
               tooltip: 'Reset',
               onPressed:
@@ -127,37 +137,44 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ),
               Expanded(
-                child: StreamBuilder(
-                  stream: getFoods(searchController.text),
-                  builder: (context, snapshot) {
-                    if (!snapshot.hasData) {
-                      return CircularProgressIndicator();
-                    } else if (snapshot.hasError) {
-                      Text('Error');
-                    }
-                    final docs = snapshot.data!.docs;
-                    return ListView.separated(
-                      keyboardDismissBehavior:
-                          ScrollViewKeyboardDismissBehavior.onDrag,
-                      separatorBuilder:
-                          (context, index) => SizedBox(height: 20),
-                      itemCount: docs.length,
-                      itemBuilder: (context, index) {
-                        final List<Food> foodList =
-                            docs
-                                .map(
-                                  (element) => Food.fromJson(
-                                    element.data() as Map<String, dynamic>,
-                                  ),
-                                )
-                                .toList();
-                        return FoodContainer(
-                          food: foodList[index],
-                          id: docs[index].id,
+                child: Center(
+                  child: StreamBuilder(
+                    stream: getFoods(searchController.text),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasError) {
+                        return Text('Error', style: TextStyle(fontSize: 32));
+                      } else if (!snapshot.hasData) {
+                        return CircularProgressIndicator();
+                      } else if (snapshot.data!.docs.isEmpty) {
+                        return Text(
+                          'ไม่พบเมนูที่ตรงกับคำค้นหา',
+                          style: TextStyle(fontSize: 32),
                         );
-                      },
-                    );
-                  },
+                      }
+                      final docs = snapshot.data!.docs;
+                      return ListView.separated(
+                        keyboardDismissBehavior:
+                            ScrollViewKeyboardDismissBehavior.onDrag,
+                        separatorBuilder:
+                            (context, index) => SizedBox(height: 20),
+                        itemCount: docs.length,
+                        itemBuilder: (context, index) {
+                          final List<Food> foodList =
+                              docs
+                                  .map(
+                                    (element) => Food.fromJson(
+                                      element.data() as Map<String, dynamic>,
+                                    ),
+                                  )
+                                  .toList();
+                          return FoodContainer(
+                            food: foodList[index],
+                            id: docs[index].id,
+                          );
+                        },
+                      );
+                    },
+                  ),
                 ),
               ),
             ],

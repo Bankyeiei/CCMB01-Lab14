@@ -158,7 +158,7 @@ Map<String, List<Map<String, dynamic>>> foodJson = {
       "menu_name": "น้ำพริกกะปิ",
       "ingredients": "กะปิ, พริกขี้หนู, มะนาว, น้ำปลา, น้ำตาลปี๊บ, มะเขือพวง",
       "image_url":
-          "https://img-global.cpcdn.com/recipes/f8221d20ae3dda82/680x482cq70/%E0%B8%A3%E0%B8%9B-%E0%B8%AB%E0%B8%A5%E0%B8%81-%E0%B8%82%E0%B8%AD%E0%B8%87-%E0%B8%AA%E0%B8%95%E0%B8%A3-%E0%B8%99%E0%B8%B3%E0%B8%9E%E0%B8%A3%E0%B8%81%E0%B8%81%E0%B8%B0%E0%B8%9B-%E0%B8%9C%E0%B8%81%E0%B8%A2%E0%B8%B2%E0%B8%87.jpg",
+          "https://classroomkrubeer.wordpress.com/wp-content/uploads/2016/08/e0b899e0b989e0b8b3e0b89ee0b8a3e0b8b4e0b881e0b881e0b8b0e0b89be0b8b4.jpg",
       "is_favorite": false,
     },
     {
