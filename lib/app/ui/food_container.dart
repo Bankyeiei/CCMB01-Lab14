@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '/app/home.dart';
 import '/app/ui/food_detail.dart';
 import '/data/food.dart';
 
@@ -11,13 +11,15 @@ class FoodContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap:
-          () => Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => FoodDetail(food: food, id: id),
-            ),
+      onTap: () {
+        HomeScreen.searchFocusNode.unfocus();
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FoodDetail(food: food, id: id),
           ),
+        );
+      },
       child: Container(
         clipBehavior: Clip.antiAlias,
         margin: EdgeInsets.symmetric(horizontal: 16),

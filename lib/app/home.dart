@@ -8,6 +8,7 @@ import '/data/data.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
+  static var searchFocusNode = FocusNode();
   static var foods = FirebaseFirestore.instance.collection('foods');
 
   @override
@@ -16,7 +17,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final searchController = TextEditingController();
-  final searchFocusNode = FocusNode();
 
   List<String> generateKeywords(String text) {
     text = text.toLowerCase();
@@ -109,7 +109,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 padding: const EdgeInsets.all(16.0),
                 child: TextField(
                   controller: searchController,
-                  focusNode: searchFocusNode,
+                  focusNode: HomeScreen.searchFocusNode,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                     prefixIcon: Icon(Icons.search),

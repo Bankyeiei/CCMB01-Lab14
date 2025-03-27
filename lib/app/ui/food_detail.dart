@@ -23,8 +23,9 @@ class _FoodDetailState extends State<FoodDetail> {
 
   @override
   void dispose() {
+    //* Update where it change only
     if (memIsFavorite != widget.food.isFavorite) {
-      //* Update where it change only
+      //* If run this, 1 Read 1 Write
       HomeScreen.foods.doc(widget.id).update({
         'is_favorite': widget.food.isFavorite,
       });
