@@ -23,7 +23,7 @@ class Food {
       chefImageUrl: foodMap['chef']?['image_url'] ?? '',
       ingredients: foodMap['ingredients'] ?? '',
       foodImageUrl: foodMap['image_url'] ?? '',
-      isFavorite: foodMap['is_favorite'],
+      isFavorite: foodMap['is_favorite'] ?? false,
     );
   }
 
